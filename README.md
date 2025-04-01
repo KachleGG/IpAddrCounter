@@ -1,2 +1,11 @@
 # IpAddrCounter
 A counter for IPv4 Addresses
+
+
+## Windows Instructions
+1. Store this folder in a directory that you please
+2. Copy the shortcut "IpAddrCounter" anywhere you want
+3. Run it from the shortcut
+
+ - source code is found in the "IpAddr" directory and can be modified with Microsoft Visual Studio by opening IpAddr.sln
+ - note: Visual Studio must be installed with the .NET Framework
