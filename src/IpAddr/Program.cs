@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Net;
+using UpdateMGR;
 
 class Program
 {
     static void Main(string[] args)
     {
+        Updater updater = new Updater("KachleGG", "IpAddrCounter", "1.0.0", "IpAddr");
+        updater.Update();
+
+
         Console.WriteLine("IP Address Calculator");
         Console.WriteLine("=====================");
 
