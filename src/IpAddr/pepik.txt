@@ -1,0 +1,11 @@
+
+--- Network Information ---
+
+Results:
+IP Address:       192.168.0.0
+Subnet Mask:      255.255.255.0 (/24)
+Network Address:  192.168.0.0
+Broadcast Address: 192.168.0.255
+IP Range:         192.168.0.1 - 192.168.0.254
+Number of Hosts:  254
+Network Class:    Class C (192.0.0.0 to 223.255.255.255)

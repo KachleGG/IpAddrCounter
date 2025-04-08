@@ -1,15 +1,16 @@
 using System;
 using System.Net;
 using System.Collections.Generic;
+using System.Text;
 
 /// <summary>
 /// Handles subnet calculations with variable-sized subnets
 /// </summary>
 public static class VariableSubnetCalculator
 {
-    public static void DivideIntoSubnets()
+    public static void DivideIntoSubnets(StringBuilder outputBuilder)
     {
-        Console.WriteLine("\n--- Subnet Calculator (Variable Hosts) ---");
+        outputBuilder.AppendLine("\n--- Subnet Calculator (Variable Hosts) ---");
         try
         {
             // Get IP address from user
@@ -49,7 +50,9 @@ public static class VariableSubnetCalculator
             IPAddress networkAddress = IpAddressUtility.CalculateNetworkAddress(ipAddress, subnetMask);
             if (!networkAddress.Equals(ipAddress))
             {
-                Console.WriteLine($"Warning: {ipAddress} is not a network address. Using {networkAddress} instead.");
+                string warning = $"Warning: {ipAddress} is not a network address. Using {networkAddress} instead.";
+                outputBuilder.AppendLine(warning);
+                Console.WriteLine(warning);
                 ipAddress = networkAddress;
             }
 
@@ -172,24 +175,29 @@ public static class VariableSubnetCalculator
             }
 
             // Display subnet information
-            Console.WriteLine("\nSubnet Details:");
-            Console.WriteLine("---------------");
+            outputBuilder.AppendLine("\nSubnet Details:");
+            outputBuilder.AppendLine("---------------");
             
             for (int i = 0; i < numSubnets; i++)
             {
-                Console.WriteLine($"\nSubnet #{i+1}:");
-                Console.WriteLine($"  Requested Hosts: {hostsPerSubnet[i]}");
-                Console.WriteLine($"  Actual Hosts:    {actualHostsPerSubnet[i]}");
-                Console.WriteLine($"  Network Address: {subnetAddresses[i]}");
-                Console.WriteLine($"  Subnet Mask:     {subnetMasks[i]} (/{subnetPrefixes[i]})");
-                Console.WriteLine($"  Broadcast:       {broadcastAddresses[i]}");
-                Console.WriteLine($"  IP Range:        {ipRanges[i].Item1} - {ipRanges[i].Item2}");
-                Console.WriteLine($"  Network Class:   {networkClasses[i]}");
+                outputBuilder.AppendLine($"\nSubnet #{i+1}:");
+                outputBuilder.AppendLine($"  Requested Hosts: {hostsPerSubnet[i]}");
+                outputBuilder.AppendLine($"  Actual Hosts:    {actualHostsPerSubnet[i]}");
+                outputBuilder.AppendLine($"  Network Address: {subnetAddresses[i]}");
+                outputBuilder.AppendLine($"  Subnet Mask:     {subnetMasks[i]} (/{subnetPrefixes[i]})");
+                outputBuilder.AppendLine($"  Broadcast:       {broadcastAddresses[i]}");
+                outputBuilder.AppendLine($"  IP Range:        {ipRanges[i].Item1} - {ipRanges[i].Item2}");
+                outputBuilder.AppendLine($"  Network Class:   {networkClasses[i]}");
             }
+            
+            // Also write to console
+            Console.WriteLine(outputBuilder.ToString());
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            string errorMessage = $"Error: {ex.Message}";
+            outputBuilder.AppendLine(errorMessage);
+            Console.WriteLine(errorMessage);
         }
         
         Console.WriteLine("\nPress any key to return to the menu...");

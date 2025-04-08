@@ -1,14 +1,15 @@
 using System;
 using System.Net;
+using System.Text;
 
 /// <summary>
 /// Handles basic network information calculations
 /// </summary>
 public static class NetworkCalculator
 {
-    public static void GetNetworkInfo()
+    public static void GetNetworkInfo(StringBuilder outputBuilder)
     {
-        Console.WriteLine("\n--- Network Information ---");
+        outputBuilder.AppendLine("\n--- Network Information ---");
         try
         {
             // Get IP address from user
@@ -51,18 +52,23 @@ public static class NetworkCalculator
             string networkClass = IpAddressUtility.DetermineNetworkClass(ipAddress);
             
             // Display results
-            Console.WriteLine("\nResults:");
-            Console.WriteLine($"IP Address:       {ipAddress}");
-            Console.WriteLine($"Subnet Mask:      {subnetMask} (/{cidrPrefix})");
-            Console.WriteLine($"Network Address:  {networkAddress}");
-            Console.WriteLine($"Broadcast Address: {broadcastAddress}");
-            Console.WriteLine($"IP Range:         {ipRange.Item1} - {ipRange.Item2}");
-            Console.WriteLine($"Number of Hosts:  {Math.Pow(2, 32 - cidrPrefix) - 2}");
-            Console.WriteLine($"Network Class:    {networkClass}");
+            outputBuilder.AppendLine("\nResults:");
+            outputBuilder.AppendLine($"IP Address:       {ipAddress}");
+            outputBuilder.AppendLine($"Subnet Mask:      {subnetMask} (/{cidrPrefix})");
+            outputBuilder.AppendLine($"Network Address:  {networkAddress}");
+            outputBuilder.AppendLine($"Broadcast Address: {broadcastAddress}");
+            outputBuilder.AppendLine($"IP Range:         {ipRange.Item1} - {ipRange.Item2}");
+            outputBuilder.AppendLine($"Number of Hosts:  {Math.Pow(2, 32 - cidrPrefix) - 2}");
+            outputBuilder.AppendLine($"Network Class:    {networkClass}");
+            
+            // Also write to console
+            Console.WriteLine(outputBuilder.ToString());
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            string errorMessage = $"Error: {ex.Message}";
+            outputBuilder.AppendLine(errorMessage);
+            Console.WriteLine(errorMessage);
         }
         
         Console.WriteLine("\nPress any key to return to the menu...");

@@ -1,14 +1,15 @@
 using System;
 using System.Net;
+using System.Text;
 
 /// <summary>
 /// Handles subnet calculations with equal-sized subnets
 /// </summary>
 public static class SubnetCalculator
 {
-    public static void DivideIntoSubnets()
+    public static void DivideIntoSubnets(StringBuilder outputBuilder)
     {
-        Console.WriteLine("\n--- Subnet Calculator ---");
+        outputBuilder.AppendLine("\n--- Subnet Calculator ---");
         try
         {
             // Get IP address from user
@@ -48,7 +49,9 @@ public static class SubnetCalculator
             IPAddress networkAddress = IpAddressUtility.CalculateNetworkAddress(ipAddress, subnetMask);
             if (!networkAddress.Equals(ipAddress))
             {
-                Console.WriteLine($"Warning: {ipAddress} is not a network address. Using {networkAddress} instead.");
+                string warning = $"Warning: {ipAddress} is not a network address. Using {networkAddress} instead.";
+                outputBuilder.AppendLine(warning);
+                Console.WriteLine(warning);
                 ipAddress = networkAddress;
             }
 
@@ -87,16 +90,16 @@ public static class SubnetCalculator
 
             // Generate and display subnet information
             IPAddress newSubnetMask = IpAddressUtility.CidrToSubnetMask(newCidrPrefix);
-            Console.WriteLine($"\nNew Subnet Mask: {newSubnetMask} (/{newCidrPrefix})");
-            Console.WriteLine($"Number of Subnets: {actualSubnets} (you requested {numSubnets})");
-            Console.WriteLine($"Hosts per Subnet: {actualHostsPerSubnet} (you requested {hostsPerSubnet})");
+            outputBuilder.AppendLine($"\nNew Subnet Mask: {newSubnetMask} (/{newCidrPrefix})");
+            outputBuilder.AppendLine($"Number of Subnets: {actualSubnets} (you requested {numSubnets})");
+            outputBuilder.AppendLine($"Hosts per Subnet: {actualHostsPerSubnet} (you requested {hostsPerSubnet})");
             
             // Calculate and display individual subnet information
             byte[] baseBytes = ipAddress.GetAddressBytes();
             int subnetSizeInAddresses = (int)Math.Pow(2, 32 - newCidrPrefix);
             
-            Console.WriteLine("\nSubnet Details:");
-            Console.WriteLine("---------------");
+            outputBuilder.AppendLine("\nSubnet Details:");
+            outputBuilder.AppendLine("---------------");
             
             for (int i = 0; i < Math.Min(actualSubnets, 100); i++) // Limit to 100 subnets for display
             {
@@ -117,23 +120,28 @@ public static class SubnetCalculator
                 Tuple<IPAddress, IPAddress> subnetRange = IpAddressUtility.CalculateIPRange(subnetAddress, subnetBroadcast);
                 string subnetClass = IpAddressUtility.DetermineNetworkClass(subnetAddress);
                 
-                Console.WriteLine($"\nSubnet #{i+1}:");
-                Console.WriteLine($"  Network Address: {subnetAddress}");
-                Console.WriteLine($"  Subnet Mask:     {newSubnetMask} (/{newCidrPrefix})");
-                Console.WriteLine($"  Broadcast:       {subnetBroadcast}");
-                Console.WriteLine($"  IP Range:        {subnetRange.Item1} - {subnetRange.Item2}");
-                Console.WriteLine($"  Hosts:           {actualHostsPerSubnet}");
-                Console.WriteLine($"  Network Class:   {subnetClass}");
+                outputBuilder.AppendLine($"\nSubnet #{i+1}:");
+                outputBuilder.AppendLine($"  Network Address: {subnetAddress}");
+                outputBuilder.AppendLine($"  Subnet Mask:     {newSubnetMask} (/{newCidrPrefix})");
+                outputBuilder.AppendLine($"  Broadcast:       {subnetBroadcast}");
+                outputBuilder.AppendLine($"  IP Range:        {subnetRange.Item1} - {subnetRange.Item2}");
+                outputBuilder.AppendLine($"  Hosts:           {actualHostsPerSubnet}");
+                outputBuilder.AppendLine($"  Network Class:   {subnetClass}");
             }
             
             if (actualSubnets > 100)
             {
-                Console.WriteLine("\n... (showing only the first 100 subnets)");
+                outputBuilder.AppendLine("\n... (showing only the first 100 subnets)");
             }
+            
+            // Also write to console
+            Console.WriteLine(outputBuilder.ToString());
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            string errorMessage = $"Error: {ex.Message}";
+            outputBuilder.AppendLine(errorMessage);
+            Console.WriteLine(errorMessage);
         }
         
         Console.WriteLine("\nPress any key to return to the menu...");
