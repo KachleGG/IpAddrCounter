@@ -6,7 +6,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Updater updater = new Updater("KachleGG", "IpAddrCounter", "1.0.2", "IpAddr");
+        Updater updater = new Updater("KachleGG", "IpAddrCounter", "1.0.3", "IpAddr");
         updater.Update();
 
 
