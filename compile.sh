@@ -5,13 +5,13 @@ version=$(cat version.txt)
 cd src/IpAddr
 
 # Win:
-dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:AssemblyName="IpAddr_win-x64-$version"
+dotnet publish -c Release -r win-x64 --self-contained true /p:PublishTrimmed=true /p:TrimMode=link /p:PublishSingleFile=true /p:InvariantGlobalization=true /p:DebugType=None /p:DebugSymbols=false /p:AssemblyName="IpAddr_win-x64-$version"
 
 # Lin:
-dotnet publish -c Release -r linux-x64 --self-contained true /p:PublishSingleFile=true /p:AssemblyName="IpAddr_linux-x64-$version"
+dotnet publish -c Release -r linux-x64 --self-contained true /p:PublishTrimmed=true /p:TrimMode=link /p:PublishSingleFile=true /p:InvariantGlobalization=true /p:DebugType=None /p:DebugSymbols=false /p:AssemblyName="IpAddr_linux-x64-$version"
 
 # masOS:
-dotnet publish -c Release -r osx-x64 --self-contained true /p:PublishSingleFile=true /p:AssemblyName="IpAddr_osx-x64-$version"
+dotnet publish -c Release -r osx-x64 --self-contained true /p:PublishTrimmed=true /p:TrimMode=link /p:PublishSingleFile=true /p:InvariantGlobalization=true /p:DebugType=None /p:DebugSymbols=false /p:AssemblyName="IpAddr_osx-x64-$version"
 
 # Returning to the main directory
 cd ..
