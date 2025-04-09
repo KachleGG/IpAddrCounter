@@ -125,11 +125,10 @@ namespace UpdateMGR {
                 if (input == "y") {
                     Console.WriteLine("Updating...");
                     
-                    try { // Add .exe file support
+                    try { 
                         string platform = GetPlatform();
-                        // Download the update file directly to the same directory
-                        string updateFileName = $"{_appName}_{platform}-{latestVersion}";
-                        if (platform == "win-x64") { updateFileName += ".exe"; }
+                        string updateFileName = $"{_appName}_{platform}-{latestVersion}{(platform == "win-x64" ? ".exe" : "")}";
+                        
                         string updateUrl = _rawBaseUrl + updateFileName;
                         string newFilePath = Path.Combine(_executableDirectory, updateFileName);
                         

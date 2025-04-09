@@ -15,7 +15,6 @@ dotnet publish -c Release -r osx-x64 --self-contained true /p:PublishTrimmed=tru
 
 # Returning to the main directory
 cd ..
-cd ..
 
 # Copy executables to the main directory
 cp IpAddr/bin/Release/net8.0/win-x64/publish/IpAddr_win-x64-$version.exe ./
