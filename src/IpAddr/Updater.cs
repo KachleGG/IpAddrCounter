@@ -144,7 +144,7 @@ namespace UpdateMGR {
                         RunUpdatedApp();
 
                         // Exits outdated(this) app to prepare it for deletion
-                        Environment.ExitCode = 0;
+                        Environment.Exit(0);
                     }
                     catch (Exception ex) {
                         Console.WriteLine($"Error during update: {ex.Message}");

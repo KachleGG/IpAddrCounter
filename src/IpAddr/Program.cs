@@ -7,7 +7,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Updater updater = new Updater("KachleGG", "IpAddrCounter", "1.0.5", "IpAddr");
+        Updater updater = new Updater("KachleGG", "IpAddrCounter", "1.0.6", "IpAddr");
         updater.Update();
 
         Console.WriteLine("IP Address Calculator");
