@@ -67,7 +67,7 @@ namespace UpdateMGR {
 
         public void RunUpdatedApp() {
             string platform = GetPlatform();
-            string updatedApp = $"{_appName}_{platform}-{latestVersion}.exe";
+            string updatedApp = $"{_appName}_{platform}-{latestVersion}{(platform == "win-x64" ? ".exe" : "")}";
 
             ProcessStartInfo updatedAppRun = new ProcessStartInfo {
             FileName = updatedApp,
@@ -122,6 +122,7 @@ namespace UpdateMGR {
                 Console.WriteLine($"Update available: {currentVersion} → {latestVersion}");
                 Console.WriteLine("Do you want to update? (y/n)");
                 string input = Console.ReadLine();
+
                 if (input == "y") {
                     Console.WriteLine("Updating...");
                     
@@ -131,7 +132,7 @@ namespace UpdateMGR {
                         
                         string updateUrl = _rawBaseUrl + updateFileName;
                         string newFilePath = Path.Combine(_executableDirectory, updateFileName);
-                        
+                         
                         Console.WriteLine($"Downloading update from: {updateUrl}");
                         byte[] fileData = _httpClient.GetByteArrayAsync(updateUrl).GetAwaiter().GetResult();
                         File.WriteAllBytes(newFilePath, fileData);
