@@ -2,7 +2,7 @@
 
 version=$(cat version.txt)
 
-cd src/IpAddr
+cd IpAddr
 
 # Win:
 dotnet publish -c Release -r win-x64 --self-contained true /p:PublishTrimmed=true /p:TrimMode=link /p:PublishSingleFile=true /p:InvariantGlobalization=true /p:DebugType=None /p:DebugSymbols=false /p:AssemblyName="IpAddr_win-x64-$version"
@@ -18,10 +18,10 @@ cd ..
 cd ..
 
 # Copy executables to the main directory
-cp src/IpAddr/bin/Release/net8.0/win-x64/publish/IpAddr_win-x64-$version.exe ./
-cp src/IpAddr/bin/Release/net8.0/linux-x64/publish/IpAddr_linux-x64-$version ./
-cp src/IpAddr/bin/Release/net8.0/osx-x64/publish/IpAddr_osx-x64-$version ./
+cp IpAddr/bin/Release/net8.0/win-x64/publish/IpAddr_win-x64-$version.exe ./
+cp IpAddr/bin/Release/net8.0/linux-x64/publish/IpAddr_linux-x64-$version ./
+cp IpAddr/bin/Release/net8.0/osx-x64/publish/IpAddr_osx-x64-$version ./
 
 # Cleaning up the install
-rm -rf src/IpAddr/bin/*
-rm -rf src/IpAddr/obj/*
+rm -rf IpAddr/bin/*
+rm -rf IpAddr/obj/*
